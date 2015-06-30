@@ -12,6 +12,7 @@ namespace iPadSerialChecker
 {
     public partial class Main : Form
     {
+        serialreader sr = new serialreader();
         public Main()
         {
             InitializeComponent();
@@ -22,10 +23,17 @@ namespace iPadSerialChecker
 
         private void beginbtn_Click(object sender, EventArgs e)
         {
-            browser.Document.GetElementById("sn").InnerText = "DMQMR72NFK10";
-            browser.Document.GetElementById("warrantycheckbutton").InvokeMember("click");
-            
+            enterserialnumberandloop(sr.getnextserialnumber());
         }
+        private void enterserialnumberandloop(string _inputserial)
+        {
+            browser.Document.GetElementById("sn").InnerText = _inputserial;
+            browser.Document.GetElementById("warrantycheckbutton").InvokeMember("click");
+
+
+     
+        }
+
     
     }
 }

@@ -37,7 +37,7 @@
             this.browser.Location = new System.Drawing.Point(-3, 54);
             this.browser.MinimumSize = new System.Drawing.Size(20, 20);
             this.browser.Name = "browser";
-            this.browser.Size = new System.Drawing.Size(774, 489);
+            this.browser.Size = new System.Drawing.Size(774, 585);
             this.browser.TabIndex = 0;
             // 
             // beginbtn
@@ -56,7 +56,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(771, 538);
+            this.ClientSize = new System.Drawing.Size(771, 638);
             this.Controls.Add(this.beginbtn);
             this.Controls.Add(this.browser);
             this.Name = "Main";
