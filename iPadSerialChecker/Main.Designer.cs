@@ -30,6 +30,8 @@
         {
             this.browser = new System.Windows.Forms.WebBrowser();
             this.beginbtn = new System.Windows.Forms.Button();
+            this.msg = new System.Windows.Forms.Label();
+            this.fault = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // browser
@@ -50,6 +52,26 @@
             this.beginbtn.UseVisualStyleBackColor = true;
             this.beginbtn.Click += new System.EventHandler(this.beginbtn_Click);
             // 
+            // msg
+            // 
+            this.msg.BackColor = System.Drawing.Color.White;
+            this.msg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.msg.Location = new System.Drawing.Point(247, 31);
+            this.msg.Name = "msg";
+            this.msg.Size = new System.Drawing.Size(152, 17);
+            this.msg.TabIndex = 2;
+            this.msg.Text = "label1";
+            this.msg.Click += new System.EventHandler(this.Onclick1);
+            // 
+            // fault
+            // 
+            this.fault.BackColor = System.Drawing.Color.White;
+            this.fault.Location = new System.Drawing.Point(537, 31);
+            this.fault.Name = "fault";
+            this.fault.Size = new System.Drawing.Size(116, 17);
+            this.fault.TabIndex = 3;
+            this.fault.Text = "label1";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -57,6 +79,8 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(771, 638);
+            this.Controls.Add(this.fault);
+            this.Controls.Add(this.msg);
             this.Controls.Add(this.beginbtn);
             this.Controls.Add(this.browser);
             this.Name = "Main";
@@ -65,10 +89,17 @@
 
         }
 
+        private void Onclick1(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
 
         private System.Windows.Forms.WebBrowser browser;
         private System.Windows.Forms.Button beginbtn;
+        private System.Windows.Forms.Label msg;
+        private System.Windows.Forms.Label fault;
     }
 }
 
