@@ -14,6 +14,7 @@ namespace iPadSerialChecker
     public partial class Main : Form
     {
         public Boolean waitingforresult = false;
+        public Boolean waitingforhome = false;
         public int mistake = 0;
         public List<string> wrong = new List<string>();
         serialreader sr = new serialreader();
@@ -33,36 +34,47 @@ namespace iPadSerialChecker
         }
         private void enterserialnumberandloop(string _inputserial)
         {
-            if (_inputserial != null)
-            {
-                browser.Document.GetElementById("sn").InnerText = _inputserial;
-                browser.Document.GetElementById("warrantycheckbutton").InvokeMember("click");
-                msg.Text = _inputserial;
-                waitingforresult = true;
-            }
-            else
-            {
-                this.enterserialnumberandloop(sr.getnextserialnumber());
-            }
             
+                if (_inputserial != null)
+                {
+                    browser.Document.GetElementById("sn").InnerText = _inputserial;
+                    browser.Document.GetElementById("warrantycheckbutton").InvokeMember("click");
+                    msg.Text = _inputserial;
+                    waitingforresult = true;
+                }
+                else
+                {
+                    this.enterserialnumberandloop(sr.getnextserialnumber());
+                }
+
             
         }
         private void redirecttohome()
         {
-            
-            browser.Url = new Uri("https://selfsolve.apple.com/agreementWarrantyDynamic.do");
+            waitingforhome = true;
+            browser.Navigate("https://selfsolve.apple.com/agreementWarrantyDynamic.do");
+          
             enterserialnumberandloop(sr.getnextserialnumber());
         }
 
         private void pageloaded(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            if (waitingforresult)
+            if (browser.ReadyState == WebBrowserReadyState.Complete)
             {
-                
-                waitingforresult = false;
-                
-                redirecttohome();
-                
+                if (waitingforresult)
+                {
+
+                    waitingforresult = false;
+
+                    redirecttohome();
+
+                }
+                else if (waitingforhome)
+                {
+                    waitingforhome = false;
+                    
+                    //enterserialnumberandloop(sr.getnextserialnumber());
+                }
             }
         }
 
