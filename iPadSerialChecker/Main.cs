@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace iPadSerialChecker
 {
     public partial class Main : Form
     {
+        public Boolean waitingforresult = false;
         public int mistake = 0;
         public List<string> wrong = new List<string>();
         serialreader sr = new serialreader();
@@ -31,23 +33,51 @@ namespace iPadSerialChecker
         }
         private void enterserialnumberandloop(string _inputserial)
         {
-            browser.Document.GetElementById("sn").InnerText = _inputserial;
-            browser.Document.GetElementById("warrantycheckbutton").InvokeMember("click");
-            msg.Text = _inputserial;
-           while(browser.ReadyState.ToString()!= "completed"){
-              
-           }
-           
-            this.redirecttohome();
+            if (_inputserial != null)
+            {
+                browser.Document.GetElementById("sn").InnerText = _inputserial;
+                browser.Document.GetElementById("warrantycheckbutton").InvokeMember("click");
+                msg.Text = _inputserial;
+                waitingforresult = true;
+            }
+            else
+            {
+                this.enterserialnumberandloop(sr.getnextserialnumber());
+            }
+            
             
         }
         private void redirecttohome()
         {
-            Task.Delay(5500);
+            
             browser.Url = new Uri("https://selfsolve.apple.com/agreementWarrantyDynamic.do");
-            browser.Refresh();
+            enterserialnumberandloop(sr.getnextserialnumber());
         }
-    
 
+        private void pageloaded(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            if (waitingforresult)
+            {
+                
+                waitingforresult = false;
+                
+                redirecttohome();
+                
+            }
+        }
+
+        private void polldelay(int _delay)
+        {
+            var spin = new System.Threading.SpinWait();
+            while (true)
+            {
+
+                spin.SpinOnce();
+                if (spin.Count > _delay)
+                {
+                    break;
+                }
+            }
+        }
     }
 }

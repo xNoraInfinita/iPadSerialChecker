@@ -41,6 +41,7 @@
             this.browser.Name = "browser";
             this.browser.Size = new System.Drawing.Size(774, 585);
             this.browser.TabIndex = 0;
+            this.browser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.pageloaded);
             // 
             // beginbtn
             // 
